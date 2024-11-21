@@ -1,35 +1,34 @@
 {
-	"name": "${containerWorkspaceFolderBasename}",
-    
+    "name": "${containerWorkspaceFolderBasename}",
     "build": {
-		"context": ".",
+        "context": ".",
         "dockerfile": "Dockerfile"
     },
-
     "features": {
         "ghcr.io/devcontainers/features/common-utils:2": {}
-      },
-    
-      "customizations": {
+    },
+    "containerEnv": {
+        "TZ": "Asia/Tokyo"
+    },
+    "forwardPorts": [],
+    "mounts": ["source=/C,target=/mnt/C,type=bind"],
+    "remoteUser": "vscode",
+    "customizations": {
         "vscode": {
-            "vscode": {
-                "settings": {
-                    "terminal.integrated.defaultProfile.linux": "bash",
-                    "python.defaultInterpreterPath": "/workspaces/&{containerWorkspaceFolderBasename}/.venv/bin/python"
-}
-                },
-			"extensions": [
-				"ms-python.python",
-				"ms-toolsai.jupyter",
-				"pkief.material-icon-theme"
-			]
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "python.defaultInterpreterPath": "/workspaces/${containerWorkspaceFolderBasename}/.venv/bin/python",
+                "python.analysis.exclude": [
+                    "**/data",
+                    "**/.venv"
+            ]
+            },
+            "extensions": [
+                "ms-python.python",
+                "ms-toolsai.jupyter"
+            ]
         }
     },
-
-    "mounts": ["source=/C,target=/mnt/C,type=bind"],
-    
-    "remoteUser": "vscode",
-
-	"postStartCommand": "uv init || echo 'uv init failed'",
-	"postAttachCommand": "uv sync || echo 'uv sync failed'"
+    "postStartCommand": "uv init || echo 'uv init failed'",
+    "postAttachCommand": "uv sync || echo 'uv sync failed'"
 }
