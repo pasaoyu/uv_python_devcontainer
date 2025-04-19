@@ -10,8 +10,7 @@
     "containerEnv": {
         "TZ": "Asia/Tokyo"
     },
-    "forwardPorts": [],
-    "mounts": ["source=/C,target=/mnt/C,type=bind"],
+    "forwardPorts": [8888],
     "remoteUser": "vscode",
     "customizations": {
         "vscode": {
